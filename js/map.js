@@ -1,5 +1,6 @@
 var map;
 var markers = [];
+var polygon = null;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 40.7413549, lng: -73.9980244},
@@ -389,11 +390,22 @@ function initMap() {
     var highlightedIcon = makeMarkerIcon('FFFF24');
     var defaultIcon = makeMarkerIcon('0091ff')
 
+    var drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.POLYGON,
+        drawingControl: true,
+        drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_LEFT,
+            drawingModes: [
+                google.maps.drawing.OverlayType.POLYGON
+            ]
+        }
+    })
+
 
 // Initialize an array of markers
     for (var i = 0; i < locations.length; i++) {
         var marker = new google.maps.Marker({
-            map: map,
+            //map: map,
             position: locations[i].location,
             title: locations[i].title,
             animation: google.maps.Animation.DROP,
@@ -415,6 +427,28 @@ function initMap() {
     map.fitBounds(bounds);
     document.getElementById('hide-listings').addEventListener('click', hideListings);
     document.getElementById('show-listings').addEventListener('click', showListings);
+
+    document.getElementById('toggle-drawing').addEventListener('click', function () {
+        toggleDrawing(drawingManager);
+    })
+
+    // Event listener when the polygon is completed
+    drawingManager.addListener('overlaycomplete', function(event){
+        // Get rid of existing polygon if there is any
+        if (polygon){
+            polygon.setMap(null);
+            hideListings();
+        }
+        //set drawing mode to no longer drawing
+        drawingManager.setDrawingMode(null);
+
+        polygon = event.overlay;
+        polygon.setEditable(true);
+        searchWithinPolygon();
+        polygon.getPath().addListener('set_at', searchWithinPolygon);
+        polygon.getPath().addListener('insert_at', searchWithinPolygon);
+    });
+
 }
 
 
@@ -482,4 +516,28 @@ function makeMarkerIcon(markerColor){
         new google.maps.Point(10, 34),
         new google.maps.Size(21,34));
     return markerImage;
+}
+
+function toggleDrawing(drawingManager){
+    if (drawingManager.map){
+        drawingManager.setMap(null);
+        if (polygon !== null) {
+            polygon.setMap(null);
+        }
+    }
+    else{
+        drawingManager.setMap(map);
+    }
+}
+
+// Only show markers within the search region
+function searchWithinPolygon(){
+    for (var i = 0; i < markers.length; i++){
+        if (google.maps.geometry.poly.containsLocation(markers[i].position, polygon)){
+            markers[i].setMap(map);
+        }
+        else{
+            markers[i].setMap(null)
+        }
+    }
 }
