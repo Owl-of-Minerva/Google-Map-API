@@ -16,9 +16,12 @@
       <file leaf-file-name="map.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="77" column="53" lean-forward="false" selection-start-line="77" selection-start-column="53" selection-end-line="77" selection-end-column="53" />
-              <folding />
+            <state relative-caret-position="358">
+              <caret line="373" column="25" lean-forward="false" selection-start-line="373" selection-start-column="25" selection-end-line="373" selection-end-column="25" />
+              <folding>
+                <element signature="e#581#5462#0" expanded="false" />
+                <element signature="e#5631#10288#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -58,8 +61,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="66" />
-    <option name="y" value="23" />
+    <option name="x" value="1853" />
+    <option name="y" value="62" />
     <option name="width" value="1280" />
     <option name="height" value="709" />
   </component>
@@ -220,15 +223,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1511286705040</updated>
-      <workItem from="1511286706325" duration="5222000" />
+      <workItem from="1511286706325" duration="6312000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5222000" />
+    <option name="totallyTimeSpent" value="6312000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="66" y="23" width="1280" height="709" extended-state="0" />
+    <frame x="1853" y="62" width="1280" height="709" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -243,7 +246,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10743134" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -281,9 +284,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="77" column="53" lean-forward="false" selection-start-line="77" selection-start-column="53" selection-end-line="77" selection-end-column="53" />
-          <folding />
+        <state relative-caret-position="358">
+          <caret line="373" column="25" lean-forward="false" selection-start-line="373" selection-start-column="25" selection-end-line="373" selection-end-column="25" />
+          <folding>
+            <element signature="e#581#5462#0" expanded="false" />
+            <element signature="e#5631#10288#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
