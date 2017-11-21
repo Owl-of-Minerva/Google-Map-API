@@ -1,4 +1,5 @@
 var map;
+var markers = [];
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 40.7413549, lng: -73.9980244},
@@ -18,7 +19,6 @@ function initMap() {
 
     var largeInfoWindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
-    var markers = [];
 
 // Initialize an array of markers
     for (var i = 0; i < locations.length; i++) {
@@ -36,6 +36,8 @@ function initMap() {
         bounds.extend(marker.position)
     }
     map.fitBounds(bounds);
+    document.getElementById('hide-listings').addEventListener('click', hideListings);
+    document.getElementById('show-listings').addEventListener('click', showListings);
 }
 
 
@@ -48,5 +50,23 @@ function populateInfoWindow(marker, infowindow){
         infowindow.addListener('closeclick', function(){
             infowindow.marker = null;
         });
+    }
+}
+
+function showListings(){
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < markers.length; i++){
+        markers[i].setMap(map);
+        // Update the boundary of the map according to the markers' locations
+        bounds.extend(markers[i].position);
+    }
+    map.fitBounds(bounds);
+
+}
+
+function hideListings() {
+    for (var i = 0; i< markers.length; i++){
+        // Hide all the markers
+        markers[i].setMap(null);
     }
 }
