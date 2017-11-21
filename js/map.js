@@ -19,6 +19,7 @@ function initMap() {
     var largeInfoWindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
     var markers = [];
+
 // Initialize an array of markers
     for (var i = 0; i < locations.length; i++) {
         var marker = new google.maps.Marker({
@@ -35,4 +36,17 @@ function initMap() {
         bounds.extend(marker.position)
     }
     map.fitBounds(bounds);
+}
+
+
+function populateInfoWindow(marker, infowindow){
+    // Check to see if the infowindow is not opened
+    if(infowindow.marker !=marker){
+        infowindow.marker = marker;
+        infowindow.setContent('<div>' + marker.title + '</div>');
+        infowindow.open(map, marker);
+        infowindow.addListener('closeclick', function(){
+            infowindow.marker = null;
+        });
+    }
 }
