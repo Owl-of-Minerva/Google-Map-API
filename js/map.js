@@ -447,6 +447,8 @@ function initMap() {
         searchWithinPolygon();
         polygon.getPath().addListener('set_at', searchWithinPolygon);
         polygon.getPath().addListener('insert_at', searchWithinPolygon);
+        //console.log(google.maps.geometry.spherical.computeArea(polygon.getPath()));
+
     });
 
 }
@@ -540,4 +542,6 @@ function searchWithinPolygon(){
             markers[i].setMap(null)
         }
     }
+    document.getElementById('area').textContent = "You searched total area of "
+        + Math.round(google.maps.geometry.spherical.computeArea(polygon.getPath())) + " square meters";
 }
