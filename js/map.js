@@ -430,7 +430,8 @@ function initMap() {
 
     document.getElementById('toggle-drawing').addEventListener('click', function () {
         toggleDrawing(drawingManager);
-    })
+    });
+    document.getElementById('zoom-to-area').addEventListener('click', zoomToArea);
 
     // Event listener when the polygon is completed
     drawingManager.addListener('overlaycomplete', function(event){
@@ -544,4 +545,29 @@ function searchWithinPolygon(){
     }
     document.getElementById('area').textContent = "You searched total area of "
         + Math.round(google.maps.geometry.spherical.computeArea(polygon.getPath())) + " square meters";
+}
+
+// Pinpoint to the sepcifi location and zoom the the area
+function zoomToArea(){
+    var geocoder = new google.maps.Geocoder();
+    var address = document.getElementById('zoom-to-area-text').value;
+    if (address == ''){
+        window.alert('Invalid empty input');
+    }
+    else{
+        geocoder.geocode(
+            {
+                address: address,
+                componentRestrictions: {locality: 'New York'}
+            }, function(results, status){
+                if (status == google.maps.GeocoderStatus.OK){
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(15);
+                }
+                else{
+                    window.alert('Location not found');
+                }
+            }
+        )
+    }
 }
