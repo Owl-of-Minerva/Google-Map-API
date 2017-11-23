@@ -1,7 +1,9 @@
 var map;
 var markers = [];
 var polygon = null;
-function initMap() {
+var directionsDisplay = null;
+
+    function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 40.7413549, lng: -73.9980244},
         zoom: 13,
@@ -433,7 +435,7 @@ function initMap() {
     });
     document.getElementById('zoom-to-area').addEventListener('click', zoomToArea);
     document.getElementById('search-within-time').addEventListener('click', searchWithinTime);
-
+    document.getElementById('clear-route').addEventListener('click', clearRoute);
     // Event listener when the polygon is completed
     drawingManager.addListener('overlaycomplete', function(event){
         // Get rid of existing polygon if there is any
@@ -619,7 +621,9 @@ function displayMarkersWithinTime(response) {
                     markers[i].setMap(map);
                     atLeastOne = true;
                     var infowindow = new google.maps.InfoWindow({
-                        content: durationText + ' away, ' + distanceText
+                        content: durationText + ' away, ' + distanceText +
+                        '<div><input type=\"button\" value=\"View Route\" onclick =' +
+                        '\"displayDirections(&quot;' + origins[i] + '&quot;);\"></input></div>'
                     });
                     infowindow.open(map, markers[i]);
                     markers[i].infowindow = infowindow;
@@ -633,4 +637,39 @@ function displayMarkersWithinTime(response) {
     if (!atLeastOne) {
         window.alert('We could not find any locations within that distance!');
     }
+}
+
+
+function displayDirections(origin) {
+    hideListings();
+    var directionsService = new google.maps.DirectionsService;
+    var destinationAddress =
+        document.getElementById('search-within-time-text').value;
+
+    var mode = document.getElementById('mode').value;
+    directionsService.route({
+        origin: origin,
+        destination: destinationAddress,
+        travelMode: google.maps.TravelMode[mode]
+    }, function(response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+             directionsDisplay = new google.maps.DirectionsRenderer({
+                map: map,
+                directions: response,
+                draggable: true,
+                polylineOptions: {
+                    strokeColor: 'green'
+                }
+            });
+             document.getElementById('clear-route').style.visibility = "visible";
+
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    });
+}
+
+function clearRoute(){
+    directionsDisplay.setMap(null);
+    document.getElementById('clear-route').style.visibility = "hidden";
 }
