@@ -1,8 +1,9 @@
 var map;
 var markers = [];
+var placeMarkers = [];
 var polygon = null;
 var directionsDisplay = null;
-
+var largeInfoWindow = null;
     function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 40.7413549, lng: -73.9980244},
@@ -376,7 +377,23 @@ var directionsDisplay = null;
     map.mapTypes.set('shade_map', shadeMapType);
     map.setMapTypeId('roadmap');
 
-// a list of marker locations
+    //Add auto complete feature when entering address
+    var timeAutoComplete = new google.maps.places.Autocomplete(document.getElementById('search-within-time-text'));
+    var zoomAutoCompete = new google.maps.places.Autocomplete(document.getElementById('zoom-to-area-text'));
+    zoomAutoCompete.bindTo('bounds', map);
+
+    var searchBox = new google.maps.places.SearchBox(document.getElementById('places-search'));
+    searchBox.setBounds(map.getBounds());
+
+    // event triggered when users selects a prediction from the list
+    searchBox.addListener('places_changed', function(){
+        searchBoxPlaces(this);
+    });
+
+    document.getElementById('go-places').addEventListener('click', textSearchPlaces);
+
+
+    // a list of marker locations
     var locations = [
         {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
         {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
@@ -386,7 +403,7 @@ var directionsDisplay = null;
         {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
     ];
 
-    var largeInfoWindow = new google.maps.InfoWindow();
+    largeInfoWindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
 
     var highlightedIcon = makeMarkerIcon('FFFF24');
@@ -427,7 +444,9 @@ var directionsDisplay = null;
         bounds.extend(marker.position);
     }
     map.fitBounds(bounds);
-    document.getElementById('hide-listings').addEventListener('click', hideListings);
+    document.getElementById('hide-listings').addEventListener('click', function(){
+        hideListings(markers);
+    });
     document.getElementById('show-listings').addEventListener('click', showListings);
 
     document.getElementById('toggle-drawing').addEventListener('click', function () {
@@ -441,7 +460,7 @@ var directionsDisplay = null;
         // Get rid of existing polygon if there is any
         if (polygon){
             polygon.setMap(null);
-            hideListings();
+            hideListings(markers);
         }
         //set drawing mode to no longer drawing
         drawingManager.setDrawingMode(null);
@@ -506,7 +525,7 @@ function showListings(){
 
 }
 
-function hideListings() {
+function hideListings(markers) {
     for (var i = 0; i< markers.length; i++){
         // Hide all the markers
         markers[i].setMap(null);
@@ -582,7 +601,7 @@ function searchWithinTime() {
     if (address == '') {
         window.alert('Invalid empty input');
     } else {
-        hideListings();
+        hideListings(markers);
         var origins = [];
         for (var i = 0; i < markers.length; i++) {
             origins[i] = markers[i].position;
@@ -639,9 +658,8 @@ function displayMarkersWithinTime(response) {
     }
 }
 
-
 function displayDirections(origin) {
-    hideListings();
+    hideListings(markers);
     var directionsService = new google.maps.DirectionsService;
     var destinationAddress =
         document.getElementById('search-within-time-text').value;
@@ -672,4 +690,60 @@ function displayDirections(origin) {
 function clearRoute(){
     directionsDisplay.setMap(null);
     document.getElementById('clear-route').style.visibility = "hidden";
+}
+
+function searchBoxPlaces(searchBox){
+    hideListings(placeMarkers);
+    var places = searchBox.getPlaces();
+    createMarkersForPlaces(places);
+    if (places.length == 0){
+        window.alert("No place was found");
+    }
+}
+
+function textSearchPlaces(){
+    var bounds = map.getBounds();
+    hideListings(placeMarkers);
+    var placesService = new google.maps.places.PlacesService(map);
+    placesService.textSearch({
+        query: document.getElementById('places-search').value,
+        bounds: bounds
+    }, function(results, status){
+        if (status === google.maps.places.PlacesServiceStatus.OK){
+            createMarkersForPlaces(results);
+        }
+    });
+}
+
+function createMarkersForPlaces(places){
+    //console.log(places.length);
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < places.length; i++){
+        var place = places[i];
+        var icon = {
+            url: place.icon,
+            size: new google.maps.Size(35,35),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(15,34),
+            scaledSize: new google.maps.Size(25,25)
+        };
+        var marker = new google.maps.Marker({
+            map: map,
+            icon: icon,
+            title: place.name,
+            position: place.geometry.location,
+            id: place.id
+        });
+        marker.addListener('click', function(){
+            populateInfoWindow(this, largeInfoWindow);
+        })
+        placeMarkers.push(marker);
+        if(place.geometry.viewport){
+            bounds.union(place.geometry.viewport);
+        }
+        else{
+            bounds.extend(place.geometry.location);
+        }
+    }
+    map.fitBounds(bounds);
 }
