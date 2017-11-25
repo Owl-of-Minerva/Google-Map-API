@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10e041cd-025b-4736-ac61-2f0875c1b21d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/google_map_api.html" afterPath="$PROJECT_DIR$/google_map_api.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/map.js" afterPath="$PROJECT_DIR$/js/map.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,8 +16,8 @@
       <file leaf-file-name="map.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="37" lean-forward="false" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+            <state relative-caret-position="373">
+              <caret line="762" column="43" lean-forward="false" selection-start-line="762" selection-start-column="43" selection-end-line="762" selection-end-column="43" />
               <folding>
                 <element signature="e#686#5567#0" expanded="false" />
                 <element signature="e#5736#10393#0" expanded="false" />
@@ -109,7 +108,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="119" />
+    <option name="x" value="504" />
     <option name="y" value="23" />
     <option name="width" value="1459" />
     <option name="height" value="708" />
@@ -271,15 +270,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1511286705040</updated>
-      <workItem from="1511286706325" duration="20975000" />
+      <workItem from="1511286706325" duration="22422000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20975000" />
+    <option name="totallyTimeSpent" value="22422000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="119" y="23" width="1459" height="708" extended-state="0" />
+    <frame x="504" y="23" width="1459" height="708" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -384,8 +383,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="37" lean-forward="false" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+        <state relative-caret-position="373">
+          <caret line="762" column="43" lean-forward="false" selection-start-line="762" selection-start-column="43" selection-end-line="762" selection-end-column="43" />
           <folding>
             <element signature="e#686#5567#0" expanded="false" />
             <element signature="e#5736#10393#0" expanded="false" />
